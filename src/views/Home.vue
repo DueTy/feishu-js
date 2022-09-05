@@ -6,12 +6,21 @@
     <button @click="testChat('oc_f8b681bc93ed99179f9d7a4a70f90e57')">
       打开潘强聊天
     </button>
-    <button @click="testChooseChat">选择聊天</button>
+    <div>
+      <button @click="testChooseChat">选择聊天</button>
+    </div>
+  </div>
+  <div>
+    <button @click="handleOpenApp">打开携程商旅</button>
+  </div>
+  <div>
+    <button @click="handleDownload">测试下载</button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import feishuAuth from "@/utils/auth";
+import { download } from "@/utils/feishu";
 import sha1 from "sha1";
 
 function simulation() {
@@ -20,7 +29,7 @@ function simulation() {
   const nonceStr = "13oEviLbrTo458A3NjrOwS70oTOXVOAm";
   const url = `http://${window.location.host}/`;
   const signature = sha1(
-    `jsapi_ticket=g104929fU6QBTKL37SVGG2QLRQZG4ROJRQ46LQUM&noncestr=${nonceStr}&timestamp=${timestamp}&url=${url}`
+    `jsapi_ticket=g10495dLANMNKP4GTL3YYG3SSDCIUCBZNENJATQQ&noncestr=${nonceStr}&timestamp=${timestamp}&url=${url}`
   );
 
   return {
@@ -33,16 +42,36 @@ function simulation() {
 
 feishuAuth(simulation())
   .then((res: string) => {
-    alert("注册成功");
+    // alert("注册成功");
   })
   .catch((err: string) => {
-    alert("注册失败");
+    // alert("注册失败");
     console.log(err);
   });
 
 function testChat(openChatId: string) {
   (window as any).tt.enterChat({
     openChatId,
+  });
+}
+
+function handleDownload() {
+  download().then((res: any) => {
+    // window.tt.filePicker({
+    //   success(res) {
+    //     const filePath = res.list[0].path;
+    window.tt.openDocument({
+      filePath: res.tempFilePath,
+      showMenu: true,
+      success(res) {
+        console.log(JSON.stringify(res));
+      },
+      fail(res) {
+        console.log(`openDocument fail: ${JSON.stringify(res)}`);
+      },
+      //   });
+      // },
+    });
   });
 }
 
@@ -65,4 +94,23 @@ function testChooseChat() {
     },
   });
 }
+
+function handleOpenApp() {
+  console.log("打开携程商旅");
+  window.open("CorpCtrip://");
+}
 </script>
+
+<style scoped>
+.home {
+  font-size: 20px;
+}
+
+button {
+  font-size: 20px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+</style>
