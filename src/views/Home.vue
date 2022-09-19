@@ -20,8 +20,10 @@
     <button @click="handleDownload">测试下载</button>
   </div>
   <div>
-    <a href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=be8v3e8c-64a4-4fb8-ae09-5ff4b25c8bd1"
-      target="_blank">
+    <a
+      href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=be8v3e8c-64a4-4fb8-ae09-5ff4b25c8bd1"
+      target="_blank"
+    >
       打开群聊
     </a>
   </div>
@@ -31,28 +33,28 @@
 </template>
 
 <script lang="ts" setup>
-import feishuAuth from "@/utils/auth";
-import { download } from "@/utils/feishu";
-import sha1 from "sha1";
-import { useRouter } from "vue-router";
+import feishuAuth from "@/utils/auth"
+import { download } from "@/utils/feishu"
+import sha1 from "sha1"
+import { useRouter } from "vue-router"
 
-const router = useRouter();
+const router = useRouter()
 
 function simulation() {
-  const timeNow = new Date();
-  const timestamp = timeNow.getTime();
-  const nonceStr = "13oEviLbrTo458A3NjrOwS70oTOXVOAm";
-  const url = `http://${window.location.host}/`;
+  const timeNow = new Date()
+  const timestamp = timeNow.getTime()
+  const nonceStr = "13oEviLbrTo458A3NjrOwS70oTOXVOAm"
+  const url = `http://${window.location.host}/`
   const signature = sha1(
     `jsapi_ticket=g1049fdKHZ5YNN6H3BBDVZEOAAI5G3JJSFDHOK3N&noncestr=${nonceStr}&timestamp=${timestamp}&url=${url}`
-  );
+  )
 
   return {
     timestamp,
     nonceStr,
     signature,
     appId: "cli_a385ae6b73bad00c",
-  };
+  }
 }
 
 feishuAuth(simulation())
@@ -61,13 +63,13 @@ feishuAuth(simulation())
   })
   .catch((err: string) => {
     // alert("注册失败");
-    console.log(err);
-  });
+    console.log(err)
+  })
 
 function testChat(openid: string) {
-  (window as any).tt.enterChat({
+  ;(window as any).tt.enterChat({
     openid,
-  });
+  })
 }
 
 function handleDownload() {
@@ -78,20 +80,20 @@ function handleDownload() {
     window.tt.openDocument({
       filePath: res.tempFilePath,
       showMenu: true,
-      success(res) {
-        console.log(JSON.stringify(res));
+      success(res: any) {
+        console.log(JSON.stringify(res))
       },
-      fail(res) {
-        console.log(`openDocument fail: ${JSON.stringify(res)}`);
+      fail(res: any) {
+        console.log(`openDocument fail: ${JSON.stringify(res)}`)
       },
       //   });
       // },
-    });
-  });
+    })
+  })
 }
 
 function testChooseChat() {
-  (window as any).tt.chooseContact({
+  ;(window as any).tt.chooseContact({
     multi: true,
     ignore: false,
     maxNum: 10,
@@ -100,17 +102,17 @@ function testChooseChat() {
     enableChooseDepartment: true,
     // disableChosenIds: ["ou_7dab8a3d3cdcc9da365777c7ad535d64"],
     success(res: any) {
-      console.log(JSON.stringify(res));
+      console.log(JSON.stringify(res))
     },
     fail(res: any) {
-      console.log(`chooseContact fail: ${JSON.stringify(res)}`);
+      console.log(`chooseContact fail: ${JSON.stringify(res)}`)
     },
-  });
+  })
 }
 
 function handleOpenApp() {
-  console.log("打开携程商旅");
-  window.open("CorpCtrip://");
+  console.log("打开携程商旅")
+  window.open("CorpCtrip://")
 }
 
 window.tt.setNavigationBar({
@@ -140,20 +142,20 @@ window.tt.setNavigationBar({
       { id: "right_two", text: "right_xxx" },
     ],
   },
-  success(res) {
-    console.log("success");
+  success(res: any) {
+    console.log("success")
   },
-  fail(err) {
-    console.log(`${JSON.stringify(err)}`);
+  fail(err: any) {
+    console.log(`${JSON.stringify(err)}`)
   },
-});
+})
 
-window.tt.onLeftNavigationBarClick((ev) => {
-  router.back();
-});
-window.tt.onRightNavigationBarClick((ev) => {
-  alert(`你点击了右上角 id 为 ${ev.id} 的按钮`);
-});
+window.tt.onLeftNavigationBarClick((ev: any) => {
+  router.back()
+})
+window.tt.onRightNavigationBarClick((ev: any) => {
+  alert(`你点击了右上角 id 为 ${ev.id} 的按钮`)
+})
 </script>
 
 <style scoped>
