@@ -24,7 +24,15 @@
       href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=be8v3e8c-64a4-4fb8-ae09-5ff4b25c8bd1"
       target="_blank"
     >
-      打开群聊
+      打开群聊1
+    </a>
+  </div>
+  <div>
+    <a
+      href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=be8v3e8c-64a4-4fb8-ae09-5ff4b25c8bd1"
+      target="_blank"
+    >
+      打开群聊2
     </a>
   </div>
   <div>
