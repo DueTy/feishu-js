@@ -1,3 +1,7 @@
 declare interface Window {
-  tt: any;
+  tt: any
+}
+declare module "*.json" {
+  const value: any
+  export default value
 }
